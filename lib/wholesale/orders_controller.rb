@@ -1,7 +1,8 @@
 module Wholesale::OrdersController
   def self.included(controller)
     controller.class_eval do
-      create.after do    
+      
+      def create_before
         params[:products].each do |product_id,variant_id|
           quantity = params[:quantity].to_i if !params[:quantity].is_a?(Array)
           quantity = params[:quantity][variant_id].to_i if params[:quantity].is_a?(Array)
@@ -21,11 +22,10 @@ module Wholesale::OrdersController
           @order.add_variant(variant, quantity) if quantity > 0
         end if params[:variants]
 
-        @order.save
-
         # store order token in the session
         session[:order_token] = @order.token
       end
+      
     end
   end
 end
