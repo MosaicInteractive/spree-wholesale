@@ -43,6 +43,10 @@ class WholesaleExtension < Spree::Extension
     Order.send(:include, Wholesale::Order)
     
     UserSessionsController.send(:include, Wholesale::UserSessionsController)
+    
+    Admin::OrdersController.send(:include, Wholesale::Admin::OrdersController)
+    
+    Admin::CheckoutsController.send(:include, Wholesale::Admin::CheckoutsController)
 
     # make your helper avaliable in all views
     # Spree::BaseController.class_eval do
