@@ -1,6 +1,11 @@
 class AddWholesaleRole < ActiveRecord::Migration
   def self.up
-    Role.create!(:name => 'wholesale') unless Role.find_by_name('wholesale')
+    # to avoid collision with rake db:bootstrap
+    unless Role.find_by_name('wholesale')
+      role = Role.new(:name => 'wholesale')
+      role.id = 3
+      role.save!
+    end
   end
 
   def self.down

@@ -1,0 +1,20 @@
+<div id="add-line-item">
+  <fieldset>
+    <legend><%= t('add_product') %></legend>
+    <div style="float:left;width:65%;margin-right:5%;">
+      <%= label_tag :add_product_name, t("name_or_sku") %>
+      <%= text_field_tag :add_product_name,  {}, :class => 'fullwidth title'  %>
+      <%= hidden_field_tag :add_variant_id %>
+    </div>
+    <div style="float: left; width: 15%; padding-top: 17px;">
+      <%= button_link_to_remote t("add"),
+                         {:url => admin_user_wholesale_products_url(@user),
+                         :method => :post,
+                         :with => "'wholesale_product[variant_id]=' + $('#add_variant_id').val()",
+                         :before => "if($('#add_variant_id').val()==''){ return false; }",
+                         :after => "$('#add_product_name').val('');$('#add_variant_id').val('')",
+                         :update => "user-form-wrapper"}, :icon => 'add' %>
+    </div>
+
+  </fieldset>
+</div>

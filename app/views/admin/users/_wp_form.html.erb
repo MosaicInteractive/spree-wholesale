@@ -1,0 +1,25 @@
+<%=error_messages_for :wholesale_product %>
+
+<% form_for(@user, :url => admin_user_url(@user), :html => { :method => :put}) do |f| %>
+<%= f.hidden_field :id %>
+<table class="index">
+  <tbody id='wholesale_products'>
+    <tr>
+      <th><%= t("sku") %></th>
+      <th><%= t("name") %></th>
+      <th class="price"><%= t("master_price") %></th>
+      <th class="price"><%= t("price_usd") %></th>
+      <th class="price"><%= t("wholesale_price") %></th>
+      <th class="price"><%= t("wholesale_price_usd") %></th>
+      <th class="price"><%= t("unique_wholesale_price") %></th>
+      <th class="price"><%= t("unique_wholesale_price_usd") %></th>
+      <th class="orders-actions"></th>
+    </tr>
+    <% f.fields_for :wholesale_products do |wp_form| %>
+      <%= render :partial => "admin/users/wholesale_product", :locals => { :f => wp_form } %>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<%= javascript_include_tag 'admin/users/edit_form.js' %>

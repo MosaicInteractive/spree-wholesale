@@ -1,0 +1,16 @@
+<h1><%= t("editing_user") + " #{@user.login}" %></h1>
+
+<% content_for :sidebar do %>
+
+  <ul class="sidebar">
+    <% hook :admin_user_tabs, {:current => current} do %>
+      <% if @user.is_wholesale_user? %>
+        <li <%= ' class="active"' if current == "Wholesale Products" %>>
+          <%= link_to t("wholesale_products"), admin_user_wholesale_products_url(@user) %>
+        </li>
+      <% end %>
+
+    <% end %>
+  </ul>
+
+<% end %>

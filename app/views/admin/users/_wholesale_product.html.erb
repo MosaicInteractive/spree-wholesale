@@ -1,0 +1,14 @@
+<tr id="<%= dom_id(f.object) %>">
+  <td><%= f.object.variant.sku %></td>
+  <td><%= f.object.variant.product.name %></td>
+  <td><%= number_to_currency f.object.variant.price %></td>
+  <td><%= number_to_currency f.object.variant.price_usd %></td>
+  <td><%= number_to_currency f.object.variant.wholesale_price %></td>
+  <td><%= number_to_currency f.object.variant.wholesale_price_usd %></td>
+  <td class="unique_wholesale_price"><%=f.text_field :unique_wholesale_price, :class => "price" %></td>
+  <td class="unique_wholesale_price_usd"><%=f.text_field :unique_wholesale_price_usd, :class => "price" %></td>
+  <td><%= link_to_delete f.object, {:url => admin_user_wholesale_product_url(@user, f.object),
+                                    :dataType => "html" ,
+                                    :success => "function(r){ jQuery('#user-form-wrapper').html(r);}"} %></td>
+</tr>
+
