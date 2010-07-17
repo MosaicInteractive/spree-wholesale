@@ -9,10 +9,12 @@ class Admin::WholesaleProductsController < Admin::BaseController
   destroy.flash nil
   
   def create
-    debugger
     load_object
     variant = Variant.find(params[:wholesale_product][:variant_id])
-    @user.add_wholesale_product(variant)
+    # add master and all variants
+    @user.add_wholesale_product(variant.product.master)
+    variant.product.variants.each {|v| @user.add_wholesale_product(v)}
+    
     if @user.save
       after :create
       set_flash :create
