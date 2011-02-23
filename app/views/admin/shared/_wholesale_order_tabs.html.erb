@@ -1,0 +1,9 @@
+      <% if @order.state == "in_progress" %>
+        <li <%= ' class="active"' if current == "Customer Details" %>>
+            <%= link_to t("customer_details"), edit_admin_order_checkout_url(@order) %>
+        </li>
+      <% else %>  
+        <li <%= ' class="active"' if current == "Customer Details" %>>
+          <%= link_to t("customer_details"), admin_order_checkout_url(@order) %>
+        </li>
+      <% end %>

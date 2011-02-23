@@ -16,7 +16,7 @@
 
       <% f.field_container :description do %>
         <%= f.label :description, t("description")%><br />
-        <%= f.text_area :description, {:cols => 60, :rows => 4, :class => 'fullwidth'} %>
+        <%= f.text_area :description, {:cols => 60, :rows => 4, :class => 'fullwidth mceEditor'} %>
         <%= f.error_message_on :description %>
       <% end %>
     <% end %>
@@ -52,10 +52,12 @@
         <%= f.text_field :sku, :size => 16 %>
       </p>
       <% unless @product.has_variants? %>
-        <p>
-          <%= f.label :on_hand, t("on_hand")%><br />
-          <%= f.text_field :on_hand, :size => 4 %>
-        </p>
+        <% if Spree::Config[:track_inventory_levels] %>
+          <p>
+            <%= f.label :on_hand, t("on_hand")%><br />
+            <%= f.text_field :on_hand, :size => 4 %>
+          </p>
+        <% end %>
         <ul id="shipping-specs">
           <li>
             <%= f.label :weight, t("weight")%>
@@ -107,3 +109,5 @@
     <%= render :partial => "admin/shared/additional_field", :locals => {:field => field, :f => f} %>
   <% end %>
 <% end %>
+
+<%= tiny_mce_init_if_needed if defined?(tiny_mce_init_if_needed) %>
