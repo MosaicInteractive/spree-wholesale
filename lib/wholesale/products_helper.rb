@@ -6,7 +6,6 @@ module Wholesale::ProductsHelper
         options.reverse_merge! :format_as_currency => true, :show_vat_text => Spree::Config[:show_price_inc_vat]
         if (!current_user.nil? && current_user.has_role?("wholesale") && !product_or_variant.wholesale_price.blank?)          
           amount = product_or_variant.wholesale_price
-          logger.info "[wholesale] printing wholesale: #{amount} for "+ (product_or_variant.is_a?(Product) ? "[product] #{product_or_variant.id.to_s}" : "[variant] #{product_or_variant.id} or #{product_or_variant.class}").to_s
         else
           ##############################################
           # ZONE_PRICING compatability
@@ -22,7 +21,6 @@ module Wholesale::ProductsHelper
           else
             amount = object.price
           end
-          logger.info "[wholesale] NOT printing wholesale: #{amount}"
         end
         amount += Calculator::Vat.calculate_tax_on(product_or_variant) if Spree::Config[:show_price_inc_vat]
         options.delete(:format_as_currency) ? format_price(amount, options) : ("%0.2f" % amount).to_f
